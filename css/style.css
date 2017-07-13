@@ -1,0 +1,69 @@
+*{
+    font-family: 'Alef', sans-serif;
+}
+
+#wellcome{
+    background-color: #2587b8;
+    text-align: center;
+    color: white;   
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+#wellcome h1{
+    font-size: 70px;
+}
+
+#wellcome-span {
+    display: block;
+    width: 150px;
+    height: 1px;
+    background: #47A5F5;
+    margin: 40px auto;
+}
+
+.wellcome-results h1{
+    font-size: 50px;
+    margin-bottom: 0;
+}
+
+.wellcome-results h2{
+    font-size: 20px;
+    margin: 0;
+}
+.wellcome-results #wellcome-span{
+    margin: 20px auto;
+}
+
+#search-div{
+    width: 700px;
+    margin: 0 auto;
+    height: 50px;
+    margin-bottom: 20px;
+}
+
+#search-input{
+    width: 60%;
+    border-radius: 0 4px 4px 0;
+    height: 100%;
+    border: 0;
+    float: right;
+    
+    font-size: 22px;
+    padding-right: 18px;
+}
+
+#search-dropdown{
+    background-color: #e1edf3;
+    height: 100%;
+    width: 30%;
+    float: right;
+}
+
+#search-submit{
+    background-color: #6bc7f6;
+    border-radius: 4px 0 0 4px;
+    height: 100%;
+    float: right;
+    width: 10%;
+}
