@@ -12,14 +12,19 @@
     <script src="./js/lib/ui-bootstrap.js" type="text/javascript"></script>
     <script src="./js/app.js" type="text/javascript"></script>
     <script src="./js/factory.js" type="text/javascript"></script> 
-
-    <title>חדשות התכנות</title>
+    <!-- AFTER KEY ->    &callback=initMap -->
+     <script  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbe4QDJhUjnsp7TT3HtbGv343dj-WlRxM" type="text/javascript"></script> 
+    <title>גמ"חיאדה</title>
 </head>
 <body dir="rtl">
     <main ng-app="gmach"> 
+        
         <div id="main-rss" ng-controller="gSearch">
+
+                <div my-map=""></div>  
+
             <!-- ng-class="{ 'wellcome-results' : searchResult != [] }" -->
-            <div class="container-fluid" id="wellcome">
+            <header class="container-fluid" id="wellcome">
                 <h1>גמ"חיאדה</h1>
                 <h2>מאגר הגמחים הגדול ביותר בlocalhost שלי, מצא במהירות את הגמ"ח הקרוב לביתך</h2>
                 <span id="wellcome-span"></span>
@@ -47,7 +52,33 @@
 
 
 
-            </div>
+            </header>
+
+            <main>
+                <!-- <div ng-repeat="icon in icons">
+                    <div ng-repeat="i in icon">
+                        <h3> i.name</h3>
+                        <img ng-src="{{i.src}}">
+                    </div>
+                </div> -->
+
+
+
+                <div ng-repeat="item in searchResult track by $index" class="result-panel">
+                    <div class="result-panel-right">
+                        <h2 class="title">{{item.name}}</h2>
+                        <h3 class="address">{{item.city}} - {{item.adress}}</h3>
+                        <p class="more-info">{{item.more}}</p>
+                    </div>
+
+                    <div class="result-panel-left">
+                            <!-- <iframe ng-src="{{'https://www.google.com/maps/embed/v1/view?key=AIzaSyBe8wsAmodjj0V2KGRaZiQvgwwH-a_1bTo&center='+ item.lat + ','+ item.lng + '&zoom=18&maptype=satellite"></iframe> -->
+                    </div>
+                </div>
+      
+
+
+            </main>
         </div>
     </main>
     <link href="https://fonts.googleapis.com/css?family=Alef" rel="stylesheet">

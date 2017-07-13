@@ -16,14 +16,15 @@ gmach.factory("gFactory", ['$http', function($http){
     }
 
     function getAllLocations(){
-        return {}
+          return $http.get("http://wschool.co.il.networkprotected.com/api/gmc/GetGmc");
     }
 
     return {
         getLocationFromGoolge   : getLocationFromGoolge,
         getClosestLocation      : getClosestLocation,
         getUserLocation         : getUserLocation,
-        getLocationByID         : getLocationByID
+        getLocationByID         : getLocationByID,
+        getAllLocations         : getAllLocations
     }
 
 
