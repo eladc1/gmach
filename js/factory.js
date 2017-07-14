@@ -1,54 +1,63 @@
-gmach.factory("gFactory", ['$http', function($http){    
-    function getLocationFromGoolge(search){
-        return $http.get("http://maps.google.com/maps/api/geocode/json?address="+ search);
+gmach.factory("gFactory", ['$http', '$q', function ($http, $q) {
+    function getLocationFromGoolge(search) {
+        return $http.get("http://maps.google.com/maps/api/geocode/json?address=" + search);
     }
 
-    function getClosestLocation(lat , lng){
+    function getClosestLocation(lat, lng) {
         const data = {
-            lat : lat,
-            lng : lng
+            params: {
+                lat: lat,
+                lng: lng
+            }
         };
         return $http.get("", JSON.stringify(data));
     }
 
-    function getLocationByID(id){
-        return $http.get("http://wschool.co.il.networkprotected.com/api/gmc/GetGmc/"+ id);
+    function getLocationByID(id) {
+        return $http.get("http://wschool.co.il.networkprotected.com/api/gmc/GetGmc/" + id);
     }
 
-    function getAllLocations(){
-          return $http.get("http://wschool.co.il.networkprotected.com/api/gmc/GetGmc");
+     function getFormatedAdressFromLocactio(lat, lng) {
+        return $http.get("http://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + ","+lng );
     }
 
+    function getAllLocations() {
+        return $http.get("http://wschool.co.il.networkprotected.com/api/gmc/GetGmc");
+    }
+
+    
+    
     return {
-        getLocationFromGoolge   : getLocationFromGoolge,
-        getClosestLocation      : getClosestLocation,
-        getUserLocation         : getUserLocation,
-        getLocationByID         : getLocationByID,
-        getAllLocations         : getAllLocations
+        getLocationFromGoolge: getLocationFromGoolge,
+        getClosestLocation: getClosestLocation,
+        getFormatedAdressFromLocactio : getFormatedAdressFromLocactio,
+        getLocationByID: getLocationByID,
+        getAllLocations: getAllLocations
     }
 
 
 
-    function showLocation(position) {
-    var latitude = position.coords.latitude;
-    var longitude = position.coords.longitude;
-    alert("Latitude : " + latitude + " Longitude: " + longitude);
-    }
-    function errorHandler(err) {
-    if(err.code == 1) {
-        alert("Error: Access is denied!");
-    }else if( err.code == 2) {
-        alert("Error: Position is unavailable!");
-    }
-    }
-    function getUserLocation(){
-        if(navigator.geolocation){
-            // timeout at 60000 milliseconds (60 seconds)
-            var options = {timeout:60000};
-            navigator.geolocation.getCurrentPosition(showLocation, errorHandler);
-        }else{
-            alert("Sorry, browser does not support geolocation!");
-        }
-    }
+    // function showLocation(position) {
+    //     var latitude = position.coords.latitude;
+    //     var longitude = position.coords.longitude;
+    //     alert("Latitude : " + latitude + " Longitude: " + longitude);
+    // }
+    // function errorHandler(err) {
+    //     if (err.code == 1) {
+    //         alert("Error: Access is denied!");
+    //     } else if (err.code == 2) {
+    //         alert("Error: Position is unavailable!");
+    //     }
+    // }
+    // function getUserLocation() {
+    //     var defer = $q.defer();
+    //     if (navigator.geolocation) {
+    //         navigator.geolocation.getCurrentPosition(function (position) {
+
+    //         }, errorHandler);
+    //     } else {
+    //         alert("Sorry, browser does not support geolocation!");
+    //     }
+    // }
 
 }]);
