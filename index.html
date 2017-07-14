@@ -24,7 +24,7 @@
         <div id="main-rss" ng-controller="gSearch">
 
             <!-- ng-class="{ 'wellcome-results' : searchResult != [] }" -->
-            <header class="container-fluid" id="wellcome">
+            <header class="container-fluid" id="wellcome" ng-class="{ 'wellcome-results': haveResult }">
                 <h1>גמ"חיאדה</h1>
                 <h2>מאגר הגמחים הגדול ביותר בlocalhost שלי, מצא במהירות את הגמ"ח הקרוב לביתי</h2>
                 <span id="wellcome-span"></span>
@@ -34,14 +34,16 @@
 
                     <div ng-controller="DropdownCtrl" id="search-dropdown">
                         <!-- Single button -->
-                        <div class="btn-group" uib-dropdown is-open="status.isopen">
-                            <button id="single-button" type="button" class="btn" uib-dropdown-toggle ng-disabled="disabled">
-                                קטגוריה <span class="caret"></span>
+                        <div class="btn-group full100" uib-dropdown is-open="status.isopen">
+                            <button id="single-button" type="button" class="btn full100" uib-dropdown-toggle ng-disabled="disabled">
+                                {{category}} <span class="caret"></span>
                             </button>
+                            
                             <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                                <li role="menuitem"><a href="#">Action</a></li>
-                                <li class="divider"></li>
-                                <li role="menuitem"><a href="#">Separated link</a></li>
+                                <li ng-repeat="cat in categories"  class="category-item" ng-click="selectCat(cat)"    role="menuitem">
+                                    <span class="glyphicon glyphicon-{{cat.icon}}"></span>
+                                    {{cat.title}}
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -54,13 +56,14 @@
 
             </header>
 
-            <main>
+            <main class="container-fluid" ng-show="haveResult">
                 <div class="result-panel row">
                     <div class="result-panel-right col-md-8">
                         <div ng-repeat="item in searchResult track by $index">
                             <h2 class="title">{{item.name}}</h2>
                             <h3 class="address">{{item.city}} - {{item.adress}}</h3>
                             <p class="more-info">{{item.more}}</p>
+                            <span modal-trigger size="'lg'"  element="item">קרא עוד</span>
                         </div>
                     </div>
                     <div class="result-panel-left col-md-4">

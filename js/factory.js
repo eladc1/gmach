@@ -3,14 +3,15 @@ gmach.factory("gFactory", ['$http', '$q', function ($http, $q) {
         return $http.get("http://maps.google.com/maps/api/geocode/json?address=" + search);
     }
 
-    function getClosestLocation(lat, lng) {
+    function getClosestLocation(lat, lng, category) {
         const data = {
             params: {
                 lat: lat,
-                lng: lng
+                lng: lng,
+                category : category
             }
         };
-        return $http.get("", JSON.stringify(data));
+        return $http.get("http://wschool.co.il.networkprotected.com/api/gmc/GetLoc/1", data);
     }
 
     function getLocationByID(id) {

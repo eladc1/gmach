@@ -2,16 +2,43 @@
     font-family: 'Alef', sans-serif;
 }
 
+body{
+    overflow: hidden;
+}
+
 #wellcome{
     background-color: #2587b8;
     text-align: center;
     color: white;   
     font-weight: bold;
     letter-spacing: 2px;
+    
+    width: 100%;
+    height: 100%;
+    position: absolute;
 }
 
+#wellcome.wellcome-results{
+    position: initial;
+ 
+}
 #wellcome h1{
-    font-size: 70px;
+    font-size: 130px;
+    margin: 70px auto 0;
+
+       
+     transition: all 0.5s ease;
+       -webkit-transition:  0.5s linear;
+    /*to only change opacity*/
+    /*-webkit-transition: opacity 1s linear*/
+   -moz-transition:  0.5s linear;
+   -o-transition:  0.5s linear;
+   transition:  0.5s linear;
+}
+
+#wellcome.wellcome-results h1{
+    font-size: 50px;
+    margin: 30px 0 10px;
 }
 
 #wellcome-span {
@@ -22,10 +49,6 @@
     margin: 40px auto;
 }
 
-.wellcome-results h1{
-    font-size: 50px;
-    margin-bottom: 0;
-}
 
 .wellcome-results h2{
     font-size: 20px;
@@ -49,7 +72,7 @@
 }
 
 #search-input{
-    width: 60%;
+    width: 54%;
     border-radius: 0 4px 4px 0;
     height: 100%;
     border: 0;
@@ -60,16 +83,63 @@
 }
 
 #search-dropdown{
-    background-color: #e1edf3;
     height: 100%;
     width: 30%;
     float: right;
+}
+
+.category-item{
+    color: #6bc7f6;
+}
+.category-item:hover{
+    color: #153140;
+}
+
+.open>.dropdown-menu {
+    display: block;
+    text-align: right;
+    font-size: 19px;
+    cursor: pointer;
+    padding-right: 8px;
+    overflow-y: auto;
+    height: 250px;
+    letter-spacing: 0px;
+}
+
+#single-button {
+    font-size: 24px;
+    background-color: #9dd6f3;
+    border-radius: 0;
 }
 
 #search-submit{
     background-color: #6bc7f6;
     border-radius: 4px 0 0 4px;
     height: 100%;
-    float: right;
-    width: 10%;
+    float: right;    
+    width: 16%;
+    font-size: 24px;
+}
+
+.result-panel-right.col-md-8 {
+    overflow-y: auto;
+    height: 450px;
+    padding: 0px 40px;
+}
+
+.result-panel-right.col-md-8 div {
+    border-bottom: 1px solid black;
+}
+
+.full100{
+    width: 100%;
+    height: 100%;
+}
+
+h3.address {
+    margin: 0 0 12px;
+}
+
+h2.title {
+    margin: 10px 0 0;
 }
