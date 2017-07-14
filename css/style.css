@@ -72,7 +72,7 @@ body{
 }
 
 #search-input{
-    width: 54%;
+    width: 52%;
     border-radius: 0 4px 4px 0;
     height: 100%;
     border: 0;
@@ -89,7 +89,7 @@ body{
 }
 
 .category-item{
-    color: #6bc7f6;
+    color: #2587b8;
 }
 .category-item:hover{
     color: #153140;
@@ -117,7 +117,7 @@ body{
     border-radius: 4px 0 0 4px;
     height: 100%;
     float: right;    
-    width: 16%;
+    width: 18%;
     font-size: 24px;
 }
 
@@ -142,4 +142,27 @@ h3.address {
 
 h2.title {
     margin: 10px 0 0;
+}
+
+.read-more{
+    font-size: 21px;
+    color: #2587b8;
+}
+
+.glyphicon-refresh-animate {
+    -animation: spin .7s infinite linear;
+    -webkit-animation: spin2 .7s infinite linear;
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}
+#search-submit .glyphicon {
+    top: 7px;
 }

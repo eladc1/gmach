@@ -38,17 +38,20 @@
                             <button id="single-button" type="button" class="btn full100" uib-dropdown-toggle ng-disabled="disabled">
                                 {{category}} <span class="caret"></span>
                             </button>
-                            
+
                             <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                                <li ng-repeat="cat in categories"  class="category-item" ng-click="selectCat(cat)"    role="menuitem">
-                                    <span class="glyphicon glyphicon-{{cat.icon}}"></span>
-                                    {{cat.title}}
+                                <li ng-repeat="cat in categories" class="category-item" ng-click="selectCat(cat)" role="menuitem">
+                                    <span class="glyphicon glyphicon-{{cat.icon}}"></span> {{cat.title}}
                                 </li>
                             </ul>
                         </div>
                     </div>
 
-                    <input type="button" id="search-submit" class="btn" ng-click="search()" value="חיפוש">
+                    <div type="button" id="search-submit" class="btn" ng-click="search()">
+                        <span ng-hide="loading">חיפוש<span class="glyphicon glyphicon-search" style="font-size: 18px;top: 4px;right: 2px;"></span></span>
+
+                        <span ng-show="loading" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+                    </div>
 
                 </div>
 
@@ -63,7 +66,7 @@
                             <h2 class="title">{{item.name}}</h2>
                             <h3 class="address">{{item.city}} - {{item.adress}}</h3>
                             <p class="more-info">{{item.more}}</p>
-                            <span modal-trigger size="'lg'"  element="item">קרא עוד</span>
+                            <span modal-trigger size="'lg'" element="item" class="read-more">קרא עוד</span>
                         </div>
                     </div>
                     <div class="result-panel-left col-md-4">

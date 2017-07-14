@@ -1,14 +1,28 @@
- <div class="modal-header">
-    <h3 class="modal-title">{{vm.content.element.id}}</h3>
-  </div>
-  <div class="modal-body">
-    {{vm.content.element.more}}
-  </div>
-  <div class="modal-footer">
-    <button class="ad-button ad-blue" type="button" ng-click="vm.confirm()">
-      confirm
+<div class="modal-header">
+    <h2 class="modal-title">{{vm.content.element.name}}</h2>
+</div>
+<div class="modal-body row">
+    <div class="col-sm-6">
+        <h3>מידע נוסף על הגמ"ח</h3>
+        <h4>{{vm.content.element.more}}</h4>
+    </div>
+
+    <div class="col-sm-6">
+
+        <h3>כתובת</h3>
+        <h4>{{vm.content.element.city}} - {{vm.content.element.adress}}</h4>
+
+        <h3>איש קשר</h3>
+        <h4>{{vm.content.element.contactN}} - {{vm.content.element.contactP}}</h4>
+
+        <h3>מייל</h3>
+        <h4>{{vm.content.element.contactE}}</h4>
+    </div>
+
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="vm.confirm()">
+      אישור
     </button>
-    <button class="ad-button ad-blue" type="button" ng-click="vm.cancel()">
-      cancel
-    </button>
-  </div>
+</div>

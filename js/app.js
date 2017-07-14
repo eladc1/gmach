@@ -17,8 +17,9 @@ gmach.controller("gSearch", ['$scope', 'gFactory', function ($scope, gFactory) {
 	$scope.haveResult = false;
 
 	$scope.category = "קטגוריה";
+	$scope.loading = false;
 
-	$scope.selectCat = function(item){
+	$scope.selectCat = function (item) {
 		$scope.category = item.title;
 	}
 
@@ -48,6 +49,7 @@ gmach.controller("gSearch", ['$scope', 'gFactory', function ($scope, gFactory) {
 	// });
 
 	function search() {
+		$scope.loading = true;
 		gFactory.getLocationFromGoolge($scope.searchBar).then(function (data) {
 			var results = data.data.results;
 			const lat = results[0].geometry.location.lat;
@@ -56,17 +58,18 @@ gmach.controller("gSearch", ['$scope', 'gFactory', function ($scope, gFactory) {
 
 			gFactory.getClosestLocation(lat, lng, $scope.category).then(function (data) {
 				var parseData = JSON.parse(data.data);
-				$scope.searchResult =[];
+				$scope.searchResult = [];
 				$scope.searchResult.push(...parseData.operations);
-				
-				$scope.haveResult = !!$scope.searchResult.length; 
+
+				$scope.loading = false;
+				$scope.haveResult = !!$scope.searchResult.length;
 
 				var data = {
-					result : $scope.searchResult,
-					location : {
-						lat : lat,
-						lng : lng,
-						formatted_address :formatted_address
+					result: $scope.searchResult,
+					location: {
+						lat: lat,
+						lng: lng,
+						formatted_address: formatted_address
 					}
 				}
 
@@ -83,7 +86,7 @@ gmach.controller("gSearch", ['$scope', 'gFactory', function ($scope, gFactory) {
 
 	$scope.search = search;
 
-	$scope.categories = [{icon:"home",title:"אירוח"},{icon:"tag",title:"בגדים"},{icon:"user",title:"חברה וקהילה"},{icon:"calander",title:"חגים ומעגל השנה"},{icon:"cloud",title:"חפצי קדושה"},{icon:"heart",title:"חתונה"},{icon:"usd",title:"כספים והלוואות"},{icon:"apple",title:"מזון"},{icon:"flash",title:"מכשירי חשמל ביתיים"},{icon:"baby-formula",title:"נשים ויולדות"},{icon:"wrench",title:"סיוע מקצועי"},{icon:"grain",title:"סיוע רפואי"},{icon:"paperclip",title:"ציוד משרדי"},{icon:"lamp",title:"רהיטים ביתיים"},{icon:"cloud",title:"תחבורה והובלה"},{icon:"knight",title:"ילדים ונוער"},{icon:"hourglass",title:"תעסוקה"},{icon:"piggy-bank",title:"אחר"}];
+	$scope.categories = [{ icon: "home", title: "אירוח" }, { icon: "tag", title: "בגדים" }, { icon: "user", title: "חברה וקהילה" }, { icon: "calendar", title: "חגים ומעגל השנה" }, { icon: "cloud", title: "חפצי קדושה" }, { icon: "heart", title: "חתונה" }, { icon: "usd", title: "כספים והלוואות" }, { icon: "apple", title: "מזון" }, { icon: "flash", title: "מכשירי חשמל ביתיים" }, { icon: "baby-formula", title: "נשים ויולדות" }, { icon: "wrench", title: "סיוע מקצועי" }, { icon: "grain", title: "סיוע רפואי" }, { icon: "paperclip", title: "ציוד משרדי" }, { icon: "lamp", title: "רהיטים ביתיים" }, { icon: "cloud", title: "תחבורה והובלה" }, { icon: "knight", title: "ילדים ונוער" }, { icon: "hourglass", title: "תעסוקה" }, { icon: "piggy-bank", title: "אחר" }];
 
 }]);
 
@@ -163,6 +166,8 @@ gmach.directive('myMap', function () {
 				infoWindow = new google.maps.InfoWindow(infoWindowOptions);
 				infoWindow.open(map, marker);
 			});
+
+
 		}
 
 
@@ -172,13 +177,21 @@ gmach.directive('myMap', function () {
 			//create empty LatLngBounds object
 			var bounds = new google.maps.LatLngBounds();
 
+
 			mapOptions.center = new google.maps.LatLng(data.location.lat, data.location.lng);
 
 			// show the map and place some markers
 			initMap();
 
+			function clearOverlays() {
+				for (var i = 0; i < markers.length; i++ ) {
+					markersArray[i].setMap(null);
+				}
+				markersArray.length = 0;
+			}
 
-				setMarker(map, new google.maps.LatLng(data.location.lat, data.location.lng), "מיקומך", "אתה נמצא פה");
+
+			setMarker(map, new google.maps.LatLng(data.location.lat, data.location.lng), "מיקומך", "אתה נמצא פה");
 
 			data.result.forEach(function (element) {
 				setMarker(map, new google.maps.LatLng(element.lat, element.lng), element.name, element.more);
@@ -202,52 +215,52 @@ gmach.directive('myMap', function () {
 
 
 gmach.controller('MyModalController', MyModalController)
-  .directive('modalTrigger', modalTriggerDirective)
-  .factory('$myModal', myModalFactory);
+	.directive('modalTrigger', modalTriggerDirective)
+	.factory('$myModal', myModalFactory);
 
 function MyModalController($uibModalInstance, items) {
-  var vm = this;
-  vm.content = items;
-  vm.confirm = $uibModalInstance.close;
-  vm.cancel = $uibModalInstance.dismiss;
+	var vm = this;
+	vm.content = items;
+	vm.confirm = $uibModalInstance.close;
+	vm.cancel = $uibModalInstance.dismiss;
 };
 
 function modalTriggerDirective($myModal) {
-  function postLink(scope, iElement, iAttrs) {
-    function onClick() {
-      var size = scope.$eval(iAttrs.size) || 'lg'; // default to large size
-      var element = scope.$eval(iAttrs.element);
-      $myModal.open(size,element);
-    }
-    iElement.on('click', onClick);
-    scope.$on('$destroy', function() {
-      iElement.off('click', onClick);
-    });
-  }
-  
-  return {
-    link: postLink
-  };
+	function postLink(scope, iElement, iAttrs) {
+		function onClick() {
+			var size = scope.$eval(iAttrs.size) || 'lg'; // default to large size
+			var element = scope.$eval(iAttrs.element);
+			$myModal.open(size, element);
+		}
+		iElement.on('click', onClick);
+		scope.$on('$destroy', function () {
+			iElement.off('click', onClick);
+		});
+	}
+
+	return {
+		link: postLink
+	};
 }
 
 function myModalFactory($uibModal) {
-  var open = function (size,element) {
-    return $uibModal.open({
-      controller: 'MyModalController',
-      controllerAs: 'vm',
-      templateUrl : 'templates/CustomModal.html',
-      size: size,
-      resolve: {
-        items: function() {
-          return {
-            element: element
-          };
-        }
-      }
-    });
-  };
+	var open = function (size, element) {
+		return $uibModal.open({
+			controller: 'MyModalController',
+			controllerAs: 'vm',
+			templateUrl: 'templates/CustomModal.html',
+			size: size,
+			resolve: {
+				items: function () {
+					return {
+						element: element
+					};
+				}
+			}
+		});
+	};
 
-  return {
-    open: open
+	return {
+		open: open
 	};
 };

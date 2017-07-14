@@ -4,13 +4,19 @@ gmach.factory("gFactory", ['$http', '$q', function ($http, $q) {
     }
 
     function getClosestLocation(lat, lng, category) {
-        const data = {
+        const data = category === "קטגוריה" ? {
             params: {
                 lat: lat,
-                lng: lng,
-                category : category
+                lng: lng
             }
-        };
+        }
+            : {
+                params: {
+                    lat: lat,
+                    lng: lng,
+                    category: category
+                }
+            };
         return $http.get("http://wschool.co.il.networkprotected.com/api/gmc/GetLoc/1", data);
     }
 
@@ -18,20 +24,20 @@ gmach.factory("gFactory", ['$http', '$q', function ($http, $q) {
         return $http.get("http://wschool.co.il.networkprotected.com/api/gmc/GetGmc/" + id);
     }
 
-     function getFormatedAdressFromLocactio(lat, lng) {
-        return $http.get("http://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + ","+lng );
+    function getFormatedAdressFromLocactio(lat, lng) {
+        return $http.get("http://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + lng);
     }
 
     function getAllLocations() {
         return $http.get("http://wschool.co.il.networkprotected.com/api/gmc/GetGmc");
     }
 
-    
-    
+
+
     return {
         getLocationFromGoolge: getLocationFromGoolge,
         getClosestLocation: getClosestLocation,
-        getFormatedAdressFromLocactio : getFormatedAdressFromLocactio,
+        getFormatedAdressFromLocactio: getFormatedAdressFromLocactio,
         getLocationByID: getLocationByID,
         getAllLocations: getAllLocations
     }
